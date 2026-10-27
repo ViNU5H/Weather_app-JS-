@@ -25,9 +25,23 @@ body {
 }
 
 .cityInput {
-  padding: 10px;
-  font-size: 16px;
+  padding: 8px;
+  font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
   width:400px;
+}
+
+.submitBtn{
+  padding: 8px ;
+  font-size: 14px;
+  background-color: #535353;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background-color: #444;
 }
