@@ -4,20 +4,16 @@ const locationBtn = document.querySelector(".locationBtn");
 const card = document.querySelector(".card");
 const apiKey = "fb685be2b00cc4516b9b9ff2cb459275";
 
-// Default city if geolocation is blocked or fails
 const FALLBACK_CITY = "Colombo";
 
-// 1. Run automatically on page load
 window.addEventListener("DOMContentLoaded", () => {
     loadLiveLocationWeather();
 });
 
-// Function to handle fetching live location on load or button click
 function loadLiveLocationWeather() {
     displayLoading("Detecting your location...");
 
     if (!navigator.geolocation) {
-        // Fallback if browser doesn't support geolocation
         loadDefaultCity("Geolocation not supported. Showing default city.");
         return;
     }
@@ -35,14 +31,12 @@ function loadLiveLocationWeather() {
         },
         (error) => {
             console.warn("Geolocation denied or failed:", error.message);
-            // Graceful fallback if user clicks "Block" or permission times out
             loadDefaultCity(`Location access denied. Showing ${FALLBACK_CITY}.`);
         },
         { timeout: 7000 }
     );
 }
 
-// Fallback loader
 async function loadDefaultCity(notice) {
     try {
         const weatherData = await getWeatherData(FALLBACK_CITY);
@@ -52,7 +46,6 @@ async function loadDefaultCity(notice) {
     }
 }
 
-// Manual search event listener
 weatherForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     const city = cityInput.value.trim();
@@ -71,7 +64,6 @@ weatherForm.addEventListener("submit", async (event) => {
     }
 });
 
-// Location button listener (if you have the button in HTML)
 if (locationBtn) {
     locationBtn.addEventListener("click", () => {
         cityInput.value = "";
@@ -79,7 +71,6 @@ if (locationBtn) {
     });
 }
 
-// API: Get by City Name
 async function getWeatherData(city) {
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}`;
     const response = await fetch(apiUrl);
@@ -87,7 +78,6 @@ async function getWeatherData(city) {
     return await response.json();
 }
 
-// API: Get by Coordinates
 async function getWeatherDataByCoords(lat, lon) {
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     const response = await fetch(apiUrl);
@@ -95,7 +85,6 @@ async function getWeatherDataByCoords(lat, lon) {
     return await response.json();
 }
 
-// Display UI
 function displayWeatherInfo(data) {
     const {
         name: city,
